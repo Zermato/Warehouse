@@ -10,11 +10,12 @@ class DatabasePipeline:
 
     def run(self):
         with databaseSession as db:
-            for operation in self.__operations:
-                if operation[1] is not None:
-                    db.execute(operation[0], operation[1])
+            for operationData in self.__operations:
+                operation, data = operationData[0], operationData[1]
+                if data is not None:
+                    db.execute(operation, data)
                 else:
-                    db.execute(operation[0])
+                    db.execute(operation)
         self.__clear()
 
     def __clear(self):

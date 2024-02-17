@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 from database.queries import SqlQueries as ds
@@ -10,7 +9,7 @@ from .consts import Constants
 from tools.fileSystem import FileSystem
 
 
-class _Initializer:
+class Initializer:
     @staticmethod
     def initializeDatabase():
         databaseCreationPipeline = DatabasePipeline()
@@ -31,8 +30,5 @@ class _Initializer:
             FileSystem.makeDir(Constants.DATA_DIRECTORY)
         if not FileSystem.exists(Path(Constants.DATA_DIRECTORY) / settingsConfig.DatabaseSettings["database"]):
             print("call create")
-            _Initializer.initializeDatabase()
-            _Initializer.initializeDatabaseData()
-
-
-g_initializer = _Initializer()
+            Initializer.initializeDatabase()
+            Initializer.initializeDatabaseData()
