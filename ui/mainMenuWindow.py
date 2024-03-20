@@ -1,8 +1,5 @@
 import customtkinter as ctk
-from Spravochnik import YourApp1
-from doc import YourApp2
-from otchet import YourApp3
-from service import YourApp4
+
 
 class YourApp:
     def __init__(self, master):

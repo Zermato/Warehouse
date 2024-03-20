@@ -15,7 +15,7 @@ class YourApp:
         frame_left.pack(side="left", padx=10, pady=10)
 
         # Загружаем изображение
-        image = Image.open("../Warehouse1/interface/1.png")  # Замените "resize.png" на путь к вашему изображению
+        image = Image.open("../qss/images/1.png")  # Замените "resize.png" на путь к вашему изображению
         image = image.resize((200, 200))  # Размер изображения
         img = ImageTk.PhotoImage(image)
 
