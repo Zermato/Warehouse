@@ -5,8 +5,8 @@ class YourApp:
         self.master.title("Справочники")
         self.master.geometry("1980x1080")
         self.reference_list = []
-        self.createuielements()
-    def createuielements(self):
+        self._createUIEelements()
+    def _createUIEelements(self):
         self.frame = ctk.CTkFrame(self.master)
         self.frame.pack(side="top",  pady=10, padx=10)
         self.buttonE = ctk.CTkButton(self.frame, text="назад", font=("Helvetica", 30), command=self.master.destroy)

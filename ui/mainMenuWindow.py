@@ -1,43 +1,36 @@
 import customtkinter as ctk
 
 
-class YourApp:
+class MainMenuWindow:
     def __init__(self, master):
         self.master = master
         self.master.title("Главное меню")
-        self.createuielements()
+        self._createUIEelements()
 
-    def createuielements(self):
+    def _createUIEelements(self):
+        self.userRoleFrame = ctk.CTkFrame(self.master)
+        self.userRoleFrame.grid(row=0, column=0, padx=10, pady=10)
+        self.userRoleLabel = ctk.CTkLabel(self.userRoleFrame, text="Админ", font=("Helvetica", 30))
+        self.userRoleLabel.pack(padx=10, pady=10)
 
-        # Создаем фрейм для label
-        self.framelefttop = ctk.CTkFrame(self.master)
-        self.framelefttop.grid(row=0, column=0, padx=10, pady=10)
+        self.buttonFrame = ctk.CTkFrame(self.master)
+        self.buttonStorage = ctk.CTkButton(self.buttonFrame, text="Склад", font=("Helvetica", 30))
+        self.buttonParish = ctk.CTkButton(self.buttonFrame, text="Приход", font=("Helvetica", 30))
+        self.buttonExpense = ctk.CTkButton(self.buttonFrame, text="Расход", font=("Helvetica", 30))
+        self.buttonService = ctk.CTkButton(self.buttonFrame, text="Сервис", font=("Helvetica", 30))
+        self.buttonFrame.grid(row=0, column=1, padx=10, pady=10)
+        self.buttonStorage.grid(row=0, column=0, padx=10, pady=10)
+        self.buttonParish.grid(row=0, column=1, padx=10, pady=10)
+        self.buttonExpense.grid(row=0, column=2, padx=10, pady=10)
+        self.buttonService.grid(row=0, column=3, padx=10, pady=10)
 
-        self.label = ctk.CTkLabel(self.framelefttop, text="Админ", font=("Helvetica", 30))
-        self.label.pack(padx=10, pady=10)
-
-        # Создаем фрейм для кнопки
-        self.frame_middle = ctk.CTkFrame(self.master)
-        self.frame_middle.grid(row=0, column=1, padx=10, pady=10)
-
-        self.buttonS = ctk.CTkButton(self.frame_middle, text="Склад", font=("Helvetica", 30))
-        self.buttonS.grid(row=0, column=0, padx=10, pady=10)
-        self.buttonD = ctk.CTkButton(self.frame_middle, text="Приход", font=("Helvetica", 30))
-        self.buttonD.grid(row=0, column=1, padx=10, pady=10)
-        self.buttonR = ctk.CTkButton(self.frame_middle, text="Расход", font=("Helvetica", 30))
-        self.buttonR.grid(row=0, column=2, padx=10, pady=10)
-        self.buttonS = ctk.CTkButton(self.frame_middle, text="Сервис", font=("Helvetica", 30))
-        self.buttonS.grid(row=0, column=3, padx=10, pady=10)
-
-        # Создаем фрейм для кнопки "Выйти"
-        self.frame_exit = ctk.CTkFrame(self.master)
-        self.frame_exit.grid(row=0, column=2, padx=10, pady=10)
-
-        self.buttonE = ctk.CTkButton(self.frame_exit, text="Выйти", font=("Helvetica", 30))
-        self.buttonE.pack(padx=10, pady=10)
+        self.exitFrame = ctk.CTkFrame(self.master)
+        self.buttonExit = ctk.CTkButton(self.exitFrame, text="Выйти", font=("Helvetica", 30))
+        self.exitFrame.grid(row=0, column=2, padx=10, pady=10)
+        self.buttonExit.pack(padx=10, pady=10)
 
 
 if __name__ == "__main__":
     root = ctk.CTk()
-    app = YourApp(root)
+    app = MainMenuWindow(root)
     root.mainloop()

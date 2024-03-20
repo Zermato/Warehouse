@@ -6,9 +6,9 @@ class YourApp1:
         self.master = master
         self.master.title("Документ расход")
         self.master.geometry("1600x800")
-        self.createuielements()
+        self._createUIEelements()
 
-    def createuielements(self):
+    def _createUIEelements(self):
         self.frame = ctk.CTkFrame(self.master)
         self.frame.pack(side="top", fill="x", pady=10, padx=10)
         self.label = ctk.CTkLabel(self.frame, text="Документ расход", font=("Helvetica", 30))
