@@ -1,68 +1,74 @@
 import customtkinter as ctk
-class YourApp:
+
+
+class DirectoryReportWindow:
     def __init__(self, master,):
         self.master = master
         self.master.title("Справочники")
         self.master.geometry("1980x1080")
-        self.reference_list = []
+        self.referenceList = []
         self._createUIEelements()
+
     def _createUIEelements(self):
         self.frame = ctk.CTkFrame(self.master)
         self.frame.pack(side="top",  pady=10, padx=10)
-        self.buttonE = ctk.CTkButton(self.frame, text="назад", font=("Helvetica", 30), command=self.master.destroy)
-        self.buttonE.pack(side="right", padx=10, pady=10)
-        self.buttonS = ctk.CTkButton(self.frame, text="Создать справочник", font=("Helvetica", 30), command=self.create_reference_window)
-        self.buttonS.pack(side="right", padx=10, pady=10)
-        self.new_frame = ctk.CTkFrame(self.master)
-        self.new_frame.pack(side="top", fill="both", expand=True, pady=0, padx=10)
-    def create_reference_window(self):
-        reference_window = ctk.CTk()
-        reference_window.title("Создание справочника")
-        label_price = ctk.CTkLabel(reference_window, text="Наименование:")
-        label_price.pack()
-        entry_price = ctk.CTkEntry(reference_window)
-        entry_price.pack()
-        button_save = ctk.CTkButton(reference_window, text="Сохранить", command=lambda: self.save_reference(entry_price.get(), reference_window))
-        button_save.pack(side="right", padx=10, pady=10)
-        reference_window.mainloop()
-    def save_reference(self, name, reference_window):
-        new_reference = {"Наименование": name}
-        self.reference_list.insert(0, new_reference)
-        self.update_reference_frame()
-        reference_window.destroy()
-    def show_reference(self, reference):
+        self.buttonBack = ctk.CTkButton(self.frame, text="назад", font=("Helvetica", 30), command=self.master.destroy)
+        self.buttonBack.pack(side="right", padx=10, pady=10)
+        self.buttonCreateDoc = ctk.CTkButton(self.frame, text="Создать справочник", font=("Helvetica", 30), command=self.createReferenceWindow)
+        self.buttonCreateDoc.pack(side="right", padx=10, pady=10)
+        self.frameItems = ctk.CTkFrame(self.master)
+        self.frameItems.pack(side="top", fill="both", expand=True, pady=0, padx=10)
 
-        selected_name = reference['Наименование']
-        print(f"Выбран справочник: {reference['Наименование']}")
-        self.create_reference_info_window(selected_name)
-    def create_reference_info_window(self, reference_name):
-        reference_window = ctk.CTk()
-        reference_app = ReferenceWindow(reference_window, reference_name)
-        reference_window.mainloop()
-    def update_reference_frame(self):
-        for widget in self.new_frame.winfo_children():
+    def createReferenceWindow(self):
+        referenceWindow = ctk.CTk()
+        referenceWindow.title("Создание справочника")
+        ctk.CTkLabel(referenceWindow, text="Наименование:").pack()
+        priceEntry = ctk.CTkEntry(referenceWindow)
+        priceEntry.pack()
+        buttonSave = ctk.CTkButton(referenceWindow, text="Сохранить", command=lambda: self.saveReference(priceEntry.get(), referenceWindow))
+        buttonSave.pack(side="right", padx=10, pady=10)
+        referenceWindow.mainloop()
+
+    def saveReference(self, name, reference_window):
+        new_reference = {"Наименование": name}
+        self.referenceList.insert(0, new_reference)
+        self.updateReferenceFrame()
+        reference_window.destroy()
+
+    def showReference(self, reference):
+        selectedName = reference['Наименование']
+        self.createReferenceInfoWindow(selectedName)
+
+    def createReferenceInfoWindow(self, referenceName):
+        referenceWindow = ctk.CTk()
+        referenceApp = ReferenceWindow(referenceWindow, referenceName)
+        referenceWindow.mainloop()
+
+    def updateReferenceFrame(self):
+        for widget in self.frameItems.winfo_children():
             widget.destroy()
         row, col = 0, 0
-        for reference in self.reference_list:
-            button = ctk.CTkButton(self.new_frame, text=reference['Наименование'],
-                                   command=lambda ref=reference: self.show_reference(ref))
+        for reference in self.referenceList:
+            button = ctk.CTkButton(self.frameItems, text=reference['Наименование'], command=lambda ref=reference: self.showReference(ref))
             button.grid(row=row, column=col, padx=10, pady=10, sticky="w")
             row += 1
-            if row * 50 > self.new_frame.winfo_height():
+            if row * 50 > self.frameItems.winfo_height():
                 row = 0
                 col += 1
-        self.new_frame.update_idletasks()
+        self.frameItems.update_idletasks()
+
+
 class ReferenceWindow:
     def __init__(self, master, reference_name):
         self.master = master
         self.master.title(reference_name)
         self.master.geometry("400x200")
-        label_info = ctk.CTkLabel(self.master, text=f"Информация о справочнике: {reference_name}")
-        label_info.pack(pady=20)
-        button_close = ctk.CTkButton(self.master, text="Закрыть", command=self.master.destroy)
-        button_close.pack()
+        ctk.CTkLabel(self.master, text=f"Информация о справочнике: {reference_name}").pack(pady=20)
+        buttonExit = ctk.CTkButton(self.master, text="Закрыть", command=self.master.destroy)
+        buttonExit.pack()
+
 
 if __name__ == "__main__":
     root = ctk.CTk()
-    app = YourApp(root)
+    app = DirectoryReportWindow(root)
     root.mainloop()

@@ -14,7 +14,7 @@ class Constants:
         "Creation Date": {"text": "Дата Создания", "size": 150},
         "Modification Date": {"text": "Дата Изменения", "size": 150}
     }
-    PARISH_WINDOW_TREE_OPTIONS = {
+    PARISH_AND_EXPENSE_WINDOW_TREE_OPTIONS = {
         "Doc number": {"text": "№ документа", "size": 100},
         "Conter": {"text": "Контрагент", "size": 100},
         "Contract number": {"text": "№ договора", "size": 100},
@@ -24,3 +24,5 @@ class Constants:
     }
     PARISH_DOCUMENT_WINDOW_TREE_OPTIONS = copy.deepcopy(STORAGE_WINDOW_TREE_OPTIONS)
     PARISH_DOCUMENT_WINDOW_TREE_OPTIONS.pop("Modification Date")
+    EXPENSE_DOCUMENT_WINDOW_TREE_OPTIONS = copy.deepcopy(STORAGE_WINDOW_TREE_OPTIONS)
+    EXPENSE_DOCUMENT_WINDOW_TREE_OPTIONS.update(numberHoursInStock={"text": "Количество часов на складе", "size": 150})

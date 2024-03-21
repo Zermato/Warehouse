@@ -35,7 +35,7 @@ class ParishWindow:
 
     def create_table(self):
         self.tree = ttk.Treeview(self.tableFrame, columns=("Doc number", "Conter", "Contract number", "Creation Date", "Status", "Comment"))
-        for header, option in Constants.PARISH_WINDOW_TREE_OPTIONS.items():
+        for header, option in Constants.PARISH_AND_EXPENSE_WINDOW_TREE_OPTIONS.items():
             self.tree.heading(header, text=option["text"])
             self.tree.column(header, width=option["size"])
         self.tree.column("#0", width=0, stretch=False)
