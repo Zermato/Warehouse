@@ -1,6 +1,6 @@
 import customtkinter as ctk
 
-
+# очистить окно
 class DirectoryReportWindow:
     def __init__(self, master,):
         self.master = master
