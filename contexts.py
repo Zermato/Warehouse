@@ -1,5 +1,7 @@
 from customtkinter import CTkButton, CTkLabel, CTkEntry, CTkFrame
 
+from userAuthorization import Authorization
+
 
 class Context:
     def __init__(self, window, data):
@@ -24,8 +26,9 @@ class AuthorizationWindowContext(Context):
 
     def _login(self):
         window = self._window
-        self.clear()
-        window.changeContext(MainWindowContext)
+        if Authorization.login(self.entryLogin.get(), self.entryPassword.get()):
+            self.clear()
+            window.changeContext(MainWindowContext)
 
 
 class MainWindowContext(Context):
