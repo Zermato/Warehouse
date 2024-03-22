@@ -1,6 +1,6 @@
-from windows import MainWindow
+from app import App
 
 
 if __name__ == "__main__":
-    app = MainWindow()
-    app.mainloop()
+    app = App()
+    app.run()

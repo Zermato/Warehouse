@@ -1,4 +1,4 @@
-from customtkinter import CTkButton, CTkLabel, CTkEntry, CTkFrame
+from customtkinter import CTkButton, CTkLabel, CTkEntry
 
 from userAuthorization import Authorization
 
