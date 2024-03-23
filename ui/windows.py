@@ -7,6 +7,9 @@ class Window(CTk):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+    def close(self):
+        CTk.destroy(self)
+
 
 class MainWindow(Window):
     def __init__(self):

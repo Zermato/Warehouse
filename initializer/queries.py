@@ -8,7 +8,7 @@ class SqlQueries:
             `ID` INTEGER PRIMARY KEY,
             `Login` VARCHAR(255),
             `Password` VARCHAR(255),
-            `Roles` INTEGER,
+            `RoleID` INTEGER,
             `Fullname` VARCHAR(255)
         );
     """

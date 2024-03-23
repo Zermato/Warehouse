@@ -6,6 +6,8 @@ class App:
     def __init__(self):
         Initializer.run()
 
+        self._window = None
+
     def run(self):
-        window = MainWindow()
-        window.mainloop()
+        self._window = MainWindow()
+        self._window.mainloop()

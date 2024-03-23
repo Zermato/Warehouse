@@ -4,10 +4,12 @@ from database.tables import DatabaseTables
 
 
 class Authorization:
-    @staticmethod
-    def login(login, password):
+    def __init__(self):
+        self._roleID = None
+
+    def login(self, login, password):
         if len(password) != 0 and len(login) != 0:
-            if Authorization._checkLoginDetails(login, password):
+            if self._checkLoginDetails(login, password):
                 print("Вошел")
                 return True
             else:
@@ -17,8 +19,18 @@ class Authorization:
             print("Error")
             return False
 
-    @staticmethod
-    def _checkLoginDetails(login, password):
+    def _checkLoginDetails(self, login, password):
         with databaseSession as db:
-            data = db.getData(SqlQueries.selectFromTable(DatabaseTables.USERS, requestData={"Login": login, "Password": password}, args=["Login", "Password"]))
+            data = db.getData(SqlQueries.selectFromTable(DatabaseTables.USERS, requestData={"Login": login, "Password": password}, args=["Login", "Password", "RoleID"]))
+        if bool(data):
+            self._roleID = data[-1]
         return bool(data)
+
+    @property
+    def role(self):
+        with databaseSession as db:
+            data = db.getData(SqlQueries.selectFromTable(DatabaseTables.ROLES, requestData={"ID": self._roleID}, args=["Name"]))
+        return data[0]
+
+
+g_authorization = Authorization()
