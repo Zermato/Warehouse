@@ -1,15 +1,14 @@
 from database.database import databaseSession
 from database.queries import SqlQueries
 from database.tables import DatabaseTables
+from settingsConfig import g_settingsConfig
 
 
 class Authorization:
-    def __init__(self):
-        self._roleID = None
-
-    def login(self, login, password):
+    @staticmethod
+    def login(login, password):
         if len(password) != 0 and len(login) != 0:
-            if self._checkLoginDetails(login, password):
+            if Authorization._checkLoginDetails(login, password):
                 print("Вошел")
                 return True
             else:
@@ -19,18 +18,17 @@ class Authorization:
             print("Error")
             return False
 
-    def _checkLoginDetails(self, login, password):
+    @staticmethod
+    def _checkLoginDetails(login, password):
         with databaseSession as db:
             data = db.getData(SqlQueries.selectFromTable(DatabaseTables.USERS, requestData={"Login": login, "Password": password}, args=["Login", "Password", "RoleID"]))
         if bool(data):
-            self._roleID = data[-1]
+            roleID = data[-1]
+            g_settingsConfig.role = Authorization.setRole(roleID)
         return bool(data)
 
-    @property
-    def role(self):
+    @staticmethod
+    def setRole(roleID):
         with databaseSession as db:
-            data = db.getData(SqlQueries.selectFromTable(DatabaseTables.ROLES, requestData={"ID": self._roleID}, args=["Name"]))
+            data = db.getData(SqlQueries.selectFromTable(DatabaseTables.ROLES, requestData={"ID": roleID}, args=["Name"]))
         return data[0]
-
-
-g_authorization = Authorization()

@@ -3,9 +3,10 @@ from decouple import config
 
 class _SettingsConfig:
     def __init__(self):
-        self.__settingsConfig = self.__loadSettings()
+        self.__settingsConfigDB = self.__loadSettingsDB()
+        self.__role = None
 
-    def __loadSettings(self):
+    def __loadSettingsDB(self):
         __settings = {}
         __settings["DATABASE"] = dict(
             database=config("DB_NAME"),
@@ -15,7 +16,15 @@ class _SettingsConfig:
 
     @property
     def DatabaseSettings(self):
-        return self.__settingsConfig["DATABASE"]
+        return self.__settingsConfigDB["DATABASE"]
+
+    @property
+    def role(self):
+        return self.__role
+
+    @role.setter
+    def role(self, role):
+        self.__role = role
 
 
-settingsConfig = _SettingsConfig()
+g_settingsConfig = _SettingsConfig()

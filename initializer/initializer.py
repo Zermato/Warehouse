@@ -2,7 +2,7 @@ from pathlib import Path
 
 from database.queries import SqlQueries as ds
 from database.tables import DatabaseTables
-from settingsConfig import settingsConfig
+from settingsConfig import g_settingsConfig
 from database.pipeline import DatabasePipeline
 from .queries import SqlQueries
 from .consts import Constants
@@ -28,7 +28,7 @@ class Initializer:
     def run():
         if not FileSystem.exists(Constants.DATA_DIRECTORY):
             FileSystem.makeDir(Constants.DATA_DIRECTORY)
-        if not FileSystem.exists(Path(Constants.DATA_DIRECTORY) / settingsConfig.DatabaseSettings["database"]):
+        if not FileSystem.exists(Path(Constants.DATA_DIRECTORY) / g_settingsConfig.DatabaseSettings["database"]):
             print("call create")
             Initializer.initializeDatabase()
             Initializer.initializeDatabaseData()

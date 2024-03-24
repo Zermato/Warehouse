@@ -1,26 +1,18 @@
 from customtkinter import CTkButton, CTkLabel, CTkEntry, CTkFrame
 
-from userAuthorization import g_authorization
+from userAuthorization import Authorization
+from settingsConfig import g_settingsConfig
 
 
 class Context:
     def __init__(self, window, data):
         self._window = window
         self._data = data
-        self._role = None
 
     def clear(self):
         for widget in self._window.winfo_children():
             widget.destroy()
         self._window = None
-
-    @property
-    def role(self):
-        return self._role
-
-    @role.setter
-    def role(self, role):
-        self._role = role
 
 
 class AuthorizationWindowContext(Context):
@@ -35,19 +27,17 @@ class AuthorizationWindowContext(Context):
 
     def _login(self):
         window = self._window
-        if g_authorization.login(self.entryLogin.get(), self.entryPassword.get()):
-            self.role = g_authorization.role
+        if Authorization.login(self.entryLogin.get(), self.entryPassword.get()):
             self.clear()
-            window.changeContext(MainWindowContext, {"role": self.role})
+            window.changeContext(MainWindowContext)
 
 
 class MainWindowContext(Context):
     def __init__(self, window, data):
         super().__init__(window, data)
-        self.role = data["role"]
         self.userRoleFrame = CTkFrame(window)
         self.userRoleFrame.grid(row=0, column=0, padx=10, pady=10)
-        self.userRoleLabel = CTkLabel(self.userRoleFrame, text=self.role, font=("Helvetica", 30))
+        self.userRoleLabel = CTkLabel(self.userRoleFrame, text=g_settingsConfig.role, font=("Helvetica", 30))
         self.userRoleLabel.pack(padx=10, pady=10)
 
         self.buttonFrame = CTkFrame(window)

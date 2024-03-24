@@ -1,17 +1,17 @@
 import sqlite3
 from pathlib import Path
 
-from settingsConfig import settingsConfig
+from settingsConfig import g_settingsConfig
 
 
 class DatabaseConnection(object):
     def __init__(self):
         self.dbConn = None
         self.dbCursor = None
-        self.__settings = settingsConfig.DatabaseSettings
+        self.__settings = g_settingsConfig.DatabaseSettings
 
     def __enter__(self):
-        self.dbConn = sqlite3.connect(Path(self.__settings["databaseDirectory"]) / self.__settings["database"]) # тут создается бд, если такого файла нет
+        self.dbConn = sqlite3.connect(Path(self.__settings["databaseDirectory"]) / self.__settings["database"])
         self.dbCursor = self.dbConn.cursor()
         return self
 
