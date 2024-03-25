@@ -1,6 +1,6 @@
 from customtkinter import CTk
 
-from ui.contexts import AuthorizationWindowContext
+from ui.contexts.authorizationWindow import AuthorizationWindowContext
 
 
 class Window(CTk):
